@@ -4,6 +4,9 @@ import Error from "../Pages/Error";
 import Login from "../Pages/Login";
 import Register from "../Pages/Register";
 import Home from "../Pages/Home/Home";
+import Bookings from "../Component/Bookings";
+import Hotels from "../Component/Hotels";
+import Private from "./Private";
 
 export const router = createBrowserRouter([
   {
@@ -22,6 +25,19 @@ export const router = createBrowserRouter([
       {
         path: "/reg",
         element: <Register></Register>,
+      },
+      {
+        path: "/bookings",
+        element: <Bookings></Bookings>,
+      },
+      {
+        path: "/travel/:id",
+        element: (
+          <Private>
+            {" "}
+            <Hotels></Hotels>
+          </Private>
+        ),
       },
     ],
   },

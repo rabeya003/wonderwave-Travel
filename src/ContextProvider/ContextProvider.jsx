@@ -10,7 +10,7 @@ import app from "../Firebase/firebase.config";
 
 export const ApiProvider = createContext(null);
 const auth = getAuth(app);
-const ContextProvider = () => {
+const ContextProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
   const createUser = (email, password) => {
@@ -35,7 +35,9 @@ const ContextProvider = () => {
     };
   }, []);
   const authInfo = { user, createUser, signIn, loading, logout };
-  return <ApiProvider.Provider value={authInfo}></ApiProvider.Provider>;
+  return (
+    <ApiProvider.Provider value={authInfo}>{children}</ApiProvider.Provider>
+  );
 };
 
 export default ContextProvider;

@@ -1,15 +1,37 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import toast from "react-hot-toast";
 import { FaFaceRollingEyes } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { ApiProvider } from "../ContextProvider/ContextProvider";
 const Login = () => {
+  const location = useLocation();
+  const { signIn } = useContext(ApiProvider);
+  const nevigate = useNavigate();
   const [passwordType, setPassword] = useState(true);
   const type = () => {
     setPassword(!passwordType);
   };
+
+  const handlelog = (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    console.log(email, password);
+    signIn(email, password)
+      .then((result) => {
+        const user = result.user;
+        e.target.reset();
+        toast.success(" User Successful register ");
+        nevigate(location?.state ? location?.state : "/");
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
+  };
   return (
     <section className="mt-20 flex justify-center  max-w-7xl mx-auto items-center">
       <div className="md:w-8/12 lg:ml-6 lg:w-5/12">
-        <form>
+        <form onSubmit={handlelog}>
           <div className="relative mb-6">
             <label>Email address</label>
             <input

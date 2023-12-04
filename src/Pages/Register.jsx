@@ -1,15 +1,50 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { FaFaceRollingEyes } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import { sendEmailVerification } from "firebase/auth";
+import { ApiProvider } from "../ContextProvider/ContextProvider";
 const Register = () => {
+  const { createUser } = useContext(ApiProvider);
   const [passwordType, setPassword] = useState(true);
+  const nevigate = useNavigate();
   const type = () => {
     setPassword(!passwordType);
   };
+
+  const handleReg = (e) => {
+    e.preventDefault();
+    const name = e.target.name.value;
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    console.log(email, password, name);
+    createUser(email, password)
+      .then((result) => {
+        const user = result.user;
+        e.target.reset();
+        toast.success(" User Successful register ");
+        nevigate("/login");
+        emailVeri(user);
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
+  };
+  const emailVeri = (user) => {
+    sendEmailVerification(user)
+      .then((result) => {
+        const user = result.user;
+        toast.success("Check your mail");
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
+  };
+
   return (
     <section className="h-screen max-w-7xl mx-auto flex justify-center items-center">
       <div className="md:w-8/12 lg:ml-6 lg:w-5/12">
-        <form>
+        <formm onSubmit={handleReg}>
           <div className="relative mb-6">
             <label>Your Name</label>
             <input
@@ -40,6 +75,8 @@ const Register = () => {
               type={passwordType ? "password" : "text"}
               className="peer block min-h-[auto] w-full rounded  bg-transparent px-3 py-[0.32rem] leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0 border"
               id="exampleFormControlInput33"
+              name="password"
+              required
               placeholder="Password"
             />
           </div>
@@ -72,7 +109,7 @@ const Register = () => {
               </Link>
             </p>
           </div>
-        </form>
+        </formm>
       </div>
     </section>
   );
