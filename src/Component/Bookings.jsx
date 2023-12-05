@@ -1,21 +1,44 @@
 import { useEffect, useState } from "react";
 import { RangeDatePicker } from "react-google-flight-datepicker";
 import "react-google-flight-datepicker/dist/main.css";
-import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+
 const Bookings = () => {
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
+  const navigate = useNavigate();
   useEffect(() => {
     fetch(`http://localhost:5000/travel`)
       .then((res) => res.json())
       .then((data) => setData(data));
   }, []);
-  const title = data?.map((d) => d.title);
-  console.log(title);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const destination = e.target.destination.value;
-    if (title.includes("Cox's Bazar") == destination) {
+    const origin = e.target.origin.value;
+    const guest = e.target.guest.value;
+    if (data.length === 0) {
       return;
+    }
+    if (!origin) {
+      toast.error("Please Enter your Origin");
+      return;
+    } else if (!destination) {
+      toast.error("Please Enter your Destination");
+      return;
+    } else if (!guest) {
+      toast.error("Guest can't be an empty");
+      return;
+    }
+    // find data of destination's name
+    const matchData = data?.find((d) =>
+      d.title.toLowerCase().includes(destination.toLowerCase())
+    );
+    if (matchData) {
+      const id = matchData._id;
+      // window.location.href = `/travel/${id}`;
+      navigate(`/travel/${id}`);
     }
   };
   return (
@@ -61,7 +84,7 @@ const Bookings = () => {
                 type="number"
                 name="guest"
                 id="guest"
-                placeholder="5"
+                placeholder="Number of guest"
                 min="0"
                 className="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
               />
@@ -80,11 +103,12 @@ const Bookings = () => {
             </div>
 
             <div>
-              <Link to={`/travel/${data?._id}`}>
-                <button className="hover:shadow-form rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none">
-                  Start Booking
-                </button>
-              </Link>
+              <button
+                type="submit"
+                className="hover:shadow-form rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none"
+              >
+                Start Booking
+              </button>
             </div>
           </form>
         </div>

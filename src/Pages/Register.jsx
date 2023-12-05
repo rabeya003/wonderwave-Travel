@@ -42,9 +42,9 @@ const Register = () => {
   };
 
   return (
-    <section className="h-screen max-w-7xl mx-auto flex justify-center items-center">
+    <section className="h-screen max-w-7xl mx-auto flex justify-center items-center mt-20">
       <div className="md:w-8/12 lg:ml-6 lg:w-5/12">
-        <formm onSubmit={handleReg}>
+        <form onSubmit={handleReg}>
           <div className="relative mb-6">
             <label>Your Name</label>
             <input
@@ -109,7 +109,7 @@ const Register = () => {
               </Link>
             </p>
           </div>
-        </formm>
+        </form>
       </div>
     </section>
   );
