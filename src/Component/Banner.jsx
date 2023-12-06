@@ -17,7 +17,7 @@ import { Link } from "react-router-dom";
 const Banner = () => {
   const [travelInfo, setTravelInfo] = useState();
   useEffect(() => {
-    fetch("http://localhost:5000/travel")
+    fetch("https://wanderwave-server.vercel.app/travel")
       .then((res) => res.json())
       .then((data) => setTravelInfo(data));
   }, []);

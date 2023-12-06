@@ -8,7 +8,7 @@ const Bookings = () => {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
-    fetch(`http://localhost:5000/travel`)
+    fetch(`https://wanderwave-server.vercel.app/travel`)
       .then((res) => res.json())
       .then((data) => setData(data));
   }, []);

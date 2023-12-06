@@ -1,11 +1,11 @@
-import { Link } from "react-router-dom";
-import CardDetails from "./CardDetails";
+// import { Link } from "react-router-dom";
+// import CardDetails from "./CardDetails";
 
 const Cards = ({ detail }) => {
   const { details, accommodations } = detail || {};
   //   const detailsHotel = accommodations?.map((a) => a);
   //   console.log(detailsHotel);
-  const a = accommodations?.map((a) => a.detailsPakage);
+  // const a = accommodations?.map((a) => a.detailsPakage);
   // const detailsPakage = a?.detailsPakage;
   // console.log(a);
 
@@ -65,7 +65,7 @@ const Cards = ({ detail }) => {
                   {a.hotel_name}
                 </h3>
                 <p className="md:text-lg text-gray-500 text-base">{details}</p>
-                <CardDetails a={a}></CardDetails>
+                {/* <CardDetails a={a}></CardDetails> */}
                 <div className="flex">
                   {" "}
                   <p className="flex-grow font-black text-gray-800">
@@ -74,12 +74,12 @@ const Cards = ({ detail }) => {
                       /night
                     </span>
                   </p>
-                  <Link to="/cardDetails">
+                  {/* <Link to="/cardDetails">
                     {" "}
                     <button className="btn mt-5 bg-sky-800 text-white">
                       Show Details
                     </button>
-                  </Link>
+                  </Link> */}
                 </div>
               </div>
             </div>

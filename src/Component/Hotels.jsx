@@ -6,7 +6,7 @@ const Hotels = () => {
   const [details, setDetails] = useState({});
   const { id } = useParams();
   useEffect(() => {
-    fetch(`http://localhost:5000/travel/${id}`)
+    fetch(`https://wanderwave-server.vercel.app/travel/${id}`)
       .then((res) => res.json())
       .then((data) => setDetails(data));
   }, [id]);
@@ -14,7 +14,7 @@ const Hotels = () => {
   // useEffect(() => {
   //   const fetchDetails = async () => {
   //     try {
-  //       const res = await fetch(`http://localhost:5000/travel/${id}`);
+  //       const res = await fetch(`https://wanderwave-server.vercel.app/travel/${id}`);
   //       const data = await res.json();
   //       setDetails(data);
   //     } catch (error) {

@@ -1,6 +1,21 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "../assets/images/logo.png";
+import { useContext } from "react";
+import { ApiProvider } from "../ContextProvider/ContextProvider";
+import toast from "react-hot-toast";
 const Header = () => {
+  const { logout, user } = useContext(ApiProvider);
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    logout()
+      .then(() => {
+        toast.success("Successfully Signed out");
+        navigate("/");
+      })
+      .catch((error) => {
+        toast.error(error);
+      });
+  };
   const nav = (
     <>
       {/* <li>
@@ -12,9 +27,15 @@ const Header = () => {
       <li>
         <NavLink to="/bookings">Bookings</NavLink>
       </li>
-      <li>
-        <NavLink to="/login">Login</NavLink>
-      </li>
+      {user ? (
+        <li onClick={handleLogout}>
+          <Link className="bg-red-800">Logout</Link>
+        </li>
+      ) : (
+        <li>
+          <NavLink to="/login">Login</NavLink>
+        </li>
+      )}
     </>
   );
   return (

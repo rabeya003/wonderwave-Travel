@@ -5,7 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ApiProvider } from "../ContextProvider/ContextProvider";
 const Login = () => {
   const location = useLocation();
-  const { signIn } = useContext(ApiProvider);
+  const { signIn, google } = useContext(ApiProvider);
   const nevigate = useNavigate();
   const [passwordType, setPassword] = useState(true);
   const type = () => {
@@ -26,6 +26,15 @@ const Login = () => {
       })
       .catch((error) => {
         toast.error(error.message);
+      });
+  };
+  const handleGoogle = () => {
+    google()
+      .then(() => {
+        toast.success("User successfully login");
+      })
+      .catch((error) => {
+        toast.error(error);
       });
   };
   return (
@@ -85,8 +94,10 @@ const Login = () => {
               </Link>
             </p>
           </div>
-
+        </form>
+        <>
           <a
+            onClick={handleGoogle}
             className="mb-3 flex w-full items-center justify-center rounded hover:bg-sky-950 bg-sky-900 px-7 pb-2.5 pt-3 text-center text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
             // style="background-color: #3b5998"
             href="#!"
@@ -97,18 +108,16 @@ const Login = () => {
             {/* Google  */}
             Continue with Google
           </a>
-          <a
+          {/* <a
             className="mb-3 flex w-full items-center hover:bg-sky-950 justify-center rounded bg-sky-900 px-7 pb-2.5 pt-3 text-center text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#54b4d3] transition duration-150 ease-in-out hover:bg-info-600 hover:shadow-[0_8px_9px_-4px_rgba(84,180,211,0.3),0_4px_18px_0_rgba(84,180,211,0.2)] focus:bg-info-600 focus:shadow-[0_8px_9px_-4px_rgba(84,180,211,0.3),0_4px_18px_0_rgba(84,180,211,0.2)] focus:outline-none focus:ring-0 active:bg-info-700 active:shadow-[0_8px_9px_-4px_rgba(84,180,211,0.3),0_4px_18px_0_rgba(84,180,211,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(84,180,211,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(84,180,211,0.2),0_4px_18px_0_rgba(84,180,211,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(84,180,211,0.2),0_4px_18px_0_rgba(84,180,211,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(84,180,211,0.2),0_4px_18px_0_rgba(84,180,211,0.1)]"
-            // style="background-color: #55acee"
             href="#!"
             role="button"
             data-te-ripple-init
             data-te-ripple-color="light"
           >
-            {/* <!-- Github --> */}
             Continue with Github
-          </a>
-        </form>
+          </a> */}
+        </>
       </div>
     </section>
   );
