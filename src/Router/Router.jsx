@@ -7,6 +7,7 @@ import Home from "../Pages/Home/Home";
 import Bookings from "../Component/Bookings";
 import Hotels from "../Component/Hotels";
 import Private from "./Private";
+import CardDetails from "../Component/CardDetails";
 
 export const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ export const router = createBrowserRouter([
             <Hotels></Hotels>
           </Private>
         ),
+      },
+      {
+        path: "/cardDetails",
+        element: <CardDetails></CardDetails>,
       },
     ],
   },

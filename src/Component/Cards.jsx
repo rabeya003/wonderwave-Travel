@@ -1,7 +1,14 @@
+import { Link } from "react-router-dom";
+import CardDetails from "./CardDetails";
+
 const Cards = ({ detail }) => {
   const { details, accommodations } = detail || {};
   //   const detailsHotel = accommodations?.map((a) => a);
   //   console.log(detailsHotel);
+  const a = accommodations?.map((a) => a.detailsPakage);
+  // const detailsPakage = a?.detailsPakage;
+  // console.log(a);
+
   return (
     <div>
       <div className="flex flex-col justify-center my-16 gap-4 ">
@@ -58,12 +65,22 @@ const Cards = ({ detail }) => {
                   {a.hotel_name}
                 </h3>
                 <p className="md:text-lg text-gray-500 text-base">{details}</p>
-                <p className=" font-black text-gray-800">
-                  {a.price}Taka
-                  <span className="font-normal text-gray-600 text-base">
-                    /night
-                  </span>
-                </p>
+                <CardDetails a={a}></CardDetails>
+                <div className="flex">
+                  {" "}
+                  <p className="flex-grow font-black text-gray-800">
+                    {a.price}Taka
+                    <span className="font-normal text-gray-600 text-base">
+                      /night
+                    </span>
+                  </p>
+                  <Link to="/cardDetails">
+                    {" "}
+                    <button className="btn mt-5 bg-sky-800 text-white">
+                      Show Details
+                    </button>
+                  </Link>
+                </div>
               </div>
             </div>
           </>
