@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { sendEmailVerification } from "firebase/auth";
 import { ApiProvider } from "../ContextProvider/ContextProvider";
+import { Helmet } from "react-helmet-async";
 const Register = () => {
   const { createUser } = useContext(ApiProvider);
   const [passwordType, setPassword] = useState(true);
@@ -43,6 +44,9 @@ const Register = () => {
 
   return (
     <section className="h-screen max-w-7xl mx-auto flex justify-center items-center mt-20">
+      <Helmet>
+        <title>WanderWaveTravel-Register</title>
+      </Helmet>
       <div className="md:w-8/12 lg:ml-6 lg:w-5/12">
         <form onSubmit={handleReg}>
           <div className="relative mb-6">

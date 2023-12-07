@@ -3,6 +3,7 @@ import { RangeDatePicker } from "react-google-flight-datepicker";
 import "react-google-flight-datepicker/dist/main.css";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const Bookings = () => {
   const [data, setData] = useState([]);
@@ -43,6 +44,9 @@ const Bookings = () => {
   };
   return (
     <div>
+      <Helmet>
+        <title>WanderWaveTravel-Booking</title>
+      </Helmet>
       <div className="flex items-center justify-center p-12">
         <div className="mx-auto w-full max-w-[550px]">
           <form onSubmit={handleSubmit}>

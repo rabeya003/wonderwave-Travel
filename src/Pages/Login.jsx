@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 import { FaFaceRollingEyes } from "react-icons/fa6";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ApiProvider } from "../ContextProvider/ContextProvider";
+import { Helmet } from "react-helmet-async";
 const Login = () => {
   const location = useLocation();
   const { signIn, google } = useContext(ApiProvider);
@@ -39,6 +40,9 @@ const Login = () => {
   };
   return (
     <section className="mt-20 flex justify-center  max-w-7xl mx-auto items-center">
+      <Helmet>
+        <title>WanderWaveTravel-Login</title>
+      </Helmet>
       <div className="md:w-8/12 lg:ml-6 lg:w-5/12">
         <form onSubmit={handlelog}>
           <div className="relative mb-6">
